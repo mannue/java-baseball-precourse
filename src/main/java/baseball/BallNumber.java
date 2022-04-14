@@ -3,11 +3,15 @@ package baseball;
 
 import java.util.Objects;
 
-class BallNumber{
-    private String value;
+class BallNumber {
+    private int value;
+
+    public BallNumber(final int value) {
+        this.value = value;
+    }
 
     public BallNumber(final String value) {
-        this.value = value;
+        this(Integer.parseInt(value));
     }
 
     @Override
@@ -15,7 +19,7 @@ class BallNumber{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BallNumber that = (BallNumber) o;
-        return Objects.equals(value, that.value);
+        return value == that.value;
     }
 
     @Override
