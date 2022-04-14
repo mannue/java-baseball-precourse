@@ -18,13 +18,13 @@
 
 #기능 구현 
 ## 기능 역할 담당
-- 숫자 VO 
-- 서로 다른수를 만드는 NumberGenerator
+- 숫자 VO (BallNumber)
+- 서로 다른수를 만드는 BallGenerator
 - 숫자를 확인하는 Judge
 - 게임을 진행하는 Presenter
 
 ## 세부 역할 정의
-1. NumberGenerator
+1. BallGenerator
    1. 역할
       - 생성할 숫자의 개수를 전달 받아서 1~9 까지 서로 다른수를 만든다.
    2. 제약 사항
