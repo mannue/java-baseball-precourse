@@ -20,7 +20,7 @@ public class PlayResultTest {
     @ParameterizedTest
     @MethodSource("provideStrikeAndBallAndExpectedMessage")
     public void testDisplay(final int ball, final int strike, final String expectedMsg) {
-        PlayResult playResult = new PlayResult(2,ball, strike);
+        PlayResult playResult = new PlayResult(2, ball, strike);
         System.out.println(playResult);
         assertThat(Objects.compare(playResult.toString(), expectedMsg, String::compareTo)).isEqualTo(0);
     }
@@ -81,7 +81,7 @@ public class PlayResultTest {
     @Test
     public void testEqual() {
         PlayResult playResult = new PlayResult(2, 1, 0);
-        assertThat(playResult).isEqualTo(new PlayResult(2,1,0));
-        assertThat(playResult).isNotEqualTo(new PlayResult(2,1,1));
+        assertThat(playResult).isEqualTo(new PlayResult(2, 1, 0));
+        assertThat(playResult).isNotEqualTo(new PlayResult(2, 1, 1));
     }
 }

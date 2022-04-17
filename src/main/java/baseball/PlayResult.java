@@ -20,6 +20,7 @@ public class PlayResult {
             return this.msg;
         }
     }
+
     private final int exitCounter;
     private final int ball;
     private final int strike;
@@ -70,7 +71,7 @@ public class PlayResult {
         if (Objects.equals(ball, Integer.MAX_VALUE) || Objects.equals(strike, Integer.MAX_VALUE)) {
             throw new IllegalArgumentException(ERROR.MAX.msg);
         }
-        if (this.ball+this.strike > this.exitCounter) {
+        if (this.ball + this.strike > this.exitCounter) {
             throw new IllegalArgumentException(ERROR.OVER.msg);
         }
     }

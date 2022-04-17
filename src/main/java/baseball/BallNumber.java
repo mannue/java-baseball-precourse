@@ -3,8 +3,8 @@ package baseball;
 
 import java.util.Objects;
 
-class BallNumber {
-    private int value;
+class BallNumber{
+    private final int value;
 
     public BallNumber(final int value) {
         this.value = value;

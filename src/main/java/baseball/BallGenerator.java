@@ -17,12 +17,12 @@ public class BallGenerator {
         return getBallNumbers(start, end, size);
     }
 
-    private static BallNumber[] getBallNumbers(final int minStart,final int end,final int size) {
+    private static BallNumber[] getBallNumbers(final int minStart, final int end, final int size) {
         Set<BallNumber> buffer = new HashSet<>();
 
-        do{
+        do {
             getNumber(minStart, end).ifPresent(buffer::add);
-        }while (isNotFull(buffer,size));
+        } while (isNotFull(buffer, size));
 
         return buffer.toArray(new BallNumber[0]);
     }
@@ -34,18 +34,18 @@ public class BallGenerator {
     }
 
     private static boolean isInvalidParams(int start, int end, int size) {
-        return isInputGreaterThanTarget(start, end) || isInvalidSize(end-start, size);
+        return isInputGreaterThanTarget(start, end) || isInvalidSize(end - start, size);
     }
 
     private static boolean isInvalidSize(final int range, final int size) {
         return !Objects.equals(Math.min(range, size), size) || size < 1;
     }
 
-    private static boolean isInputGreaterThanTarget(final int input,final int target) {
+    private static boolean isInputGreaterThanTarget(final int input, final int target) {
         return input > target;
     }
 
     private static boolean isNotFull(final Set<BallNumber> buffer, final int size) {
-        return buffer.size() <  size;
+        return buffer.size() < size;
     }
 }
