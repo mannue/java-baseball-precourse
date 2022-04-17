@@ -20,6 +20,7 @@
 - 숫자 VO (BallNumber)
 - 서로 다른수를 만드는 BallGenerator
 - 숫자를 확인하는 Judge
+- 결과값 VO(PlayResult)
 - 게임을 진행하는 Presenter
 
 ### 세부 역할 정의
@@ -37,10 +38,13 @@
    2. 제약 사항
       - NumberGenerator 로 부터 받은 정보 보다 사용자로 부터 입력받은 정보가 길수는 없다.
    3. 제공 정보
-      - NumberGenerator 로 부터 받은 정보 와 사용자로 부터 받은 정보를 확인한다.
+      - NumberGenerator 로 부터 받은 정보 와 사용자로 부터 받은 정보를 확인하여 PlayResult VO를 Return 한다.
 
 3. Presenter
    1. 역할
-      - 사용자 입력에 따른 출력 결과 와 종료시 다시 진행 여부를 확인한다.
+      - 게임 내 화면 입력 및 출력 을 담당한다.
+   2. 제약 사항
+   - PlayResult VO 의 isFinish 가 True 인 경우 게임 새로 시작 및 종료 여부를 확인한다.
+   
    
       
