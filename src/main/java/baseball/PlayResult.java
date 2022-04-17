@@ -53,13 +53,13 @@ public class PlayResult {
     @Override
     public String toString() {
         if (hasBall() && hasStrike()) {
-            return String.format("%d볼 %d스크라이크", this.ball, this.strike);
+            return String.format("%d볼 %d스트라이크", this.ball, this.strike);
         }
         if (hasBall()) {
             return String.format("%d볼", this.ball);
         }
         if (hasStrike()) {
-            return String.format("%d스크라이크", this.strike);
+            return String.format("%d스트라이크", this.strike);
         }
         return "낫싱";
     }
