@@ -21,14 +21,13 @@ public class PlayResultTest {
     @MethodSource("provideStrikeAndBallAndExpectedMessage")
     public void testDisplay(final int ball, final int strike, final String expectedMsg) {
         PlayResult playResult = new PlayResult(2, ball, strike);
-        System.out.println(playResult);
         assertThat(Objects.compare(playResult.toString(), expectedMsg, String::compareTo)).isEqualTo(0);
     }
 
     private static Stream<Arguments> provideStrikeAndBallAndExpectedMessage() {
         return Stream.of(
-                Arguments.of(0, 1, "1스크라이크"),
-                Arguments.of(1, 1, "1볼 1스크라이크"),
+                Arguments.of(0, 1, "1스트라이크"),
+                Arguments.of(1, 1, "1볼 1스트라이크"),
                 Arguments.of(0, 0, "낫싱")
         );
     }

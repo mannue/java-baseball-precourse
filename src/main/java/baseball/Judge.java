@@ -17,7 +17,6 @@ public class Judge {
     }
 
     public int setup(final BallNumber[] ballNumbers) {
-        this.ballNumberSize = ballNumbers.length;
         if (isInvalidParam(ballNumbers)) {
             throw new IllegalArgumentException();
         }
@@ -25,11 +24,12 @@ public class Judge {
             clearTable();
         }
         updateTable(ballNumbers);
+        this.ballNumberSize = ballNumbers.length;
         return updatedSize();
     }
 
     private boolean isInvalidParam(final BallNumber[] ballNumbers) {
-        return Objects.isNull(ballNumbers) || ballNumbers.length < 1 || this.ballNumberSize < ballNumbers.length;
+        return Objects.isNull(ballNumbers) || ballNumbers.length < 1;
     }
 
     private void clearTable() {
@@ -47,7 +47,7 @@ public class Judge {
     }
 
     public PlayResult ask(final BallNumber[] userInputBallNumbers) {
-        if (isInvalidParam(userInputBallNumbers)) {
+        if (isInvalidParam(userInputBallNumbers) || isOverInputBallNumbers(userInputBallNumbers)) {
             throw new IllegalArgumentException();
         }
         final int[] score = new int[SCORE_BUFFER_SIZE];
@@ -55,6 +55,10 @@ public class Judge {
             writeScore(score, ballNumberPlaceMap.getOrDefault(userInputBallNumbers[i - 1], NO_KEY_VALUE), i);
         }
         return new PlayResult(this.ballNumberSize, score[BALL_INDEX], score[STRIKE_INDEX]);
+    }
+
+    private boolean isOverInputBallNumbers(final BallNumber[] inputBallNumbers) {
+        return this.ballNumberSize < inputBallNumbers.length;
     }
 
     private void writeScore(final int[] score, final int savedBallNumberIndex, int inputBallNumberIndex) {

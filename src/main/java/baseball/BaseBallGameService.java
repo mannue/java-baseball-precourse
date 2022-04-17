@@ -14,9 +14,7 @@ public class BaseBallGameService {
 
     public void run(final BaseBallGameConfig config) {
         do {
-            if(!initSuccess(config)) {
-                throw new IllegalArgumentException();
-            }
+            initGameSetting(config);
             startGame();
         } while (Objects.equals(isContinueGame(config.getInputSize()), PlayCode.RETRY));
     }
@@ -35,8 +33,10 @@ public class BaseBallGameService {
         } while (!result.isFinish());
     }
 
-    private boolean initSuccess(BaseBallGameConfig config) {
+    private void initGameSetting(BaseBallGameConfig config) {
         int res = this.baseBallJudge.setup(BallGenerator.create(config.getStartRange(), config.getEndRange(), config.getInputSize()));
-        return Objects.equals(res, config.getInputSize());
+        if(!Objects.equals(res, config.getInputSize())) {
+            throw new IllegalArgumentException();
+        }
     }
 }
