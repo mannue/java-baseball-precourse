@@ -17,32 +17,32 @@ public class BallGenerator {
         return getBallNumbers(start, end, size);
     }
 
-    private static BallNumber[] getBallNumbers(int start, int end, int size) {
+    private static BallNumber[] getBallNumbers(final int minStart,final int end,final int size) {
         Set<BallNumber> buffer = new HashSet<>();
 
         do{
-            getNumber(start, end).ifPresent(buffer::add);
+            getNumber(minStart, end).ifPresent(buffer::add);
         }while (isNotFull(buffer,size));
 
         return buffer.toArray(new BallNumber[0]);
     }
 
-    private static boolean isInvalidParams(int start, int end, int size) {
-        return isInvalidRange(start, end) || isInvalidSize(start, end, size);
-    }
-
-    private static boolean isInvalidSize(int start, int end, int size) {
-        return !Objects.equals(Math.min(end - start, size), size) || size < 1;
-    }
-
-    private static boolean isInvalidRange(int start, int end) {
-        return start > end;
-    }
-
-    private static Optional<BallNumber> getNumber(final int start, final int end) {
-        final int item = pickNumberInRange(start, end);
-        if (item < start || isInvalidRange(item, end)) return Optional.empty();
+    private static Optional<BallNumber> getNumber(final int min, final int max) {
+        final int item = pickNumberInRange(min, max);
+        if (isInputGreaterThanTarget(min, item) || isInputGreaterThanTarget(item, max)) return Optional.empty();
         return Optional.of(new BallNumber(item));
+    }
+
+    private static boolean isInvalidParams(int start, int end, int size) {
+        return isInputGreaterThanTarget(start, end) || isInvalidSize(end-start, size);
+    }
+
+    private static boolean isInvalidSize(final int range, final int size) {
+        return !Objects.equals(Math.min(range, size), size) || size < 1;
+    }
+
+    private static boolean isInputGreaterThanTarget(final int input,final int target) {
+        return input > target;
     }
 
     private static boolean isNotFull(final Set<BallNumber> buffer, final int size) {
