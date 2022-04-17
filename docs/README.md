@@ -21,7 +21,9 @@
 - 서로 다른수를 만드는 BallGenerator
 - 숫자를 확인하는 Judge
 - 결과값 VO(PlayResult)
-- 게임을 진행하는 Presenter
+- 게임 내 입력과 출력을 담당 Presenter
+- 실제 게임을 동작하는 BaseBallGameService
+- 게임 설정관련 BaseBallGameConfig
 
 ### 세부 역할 정의
 1. BallGenerator
@@ -46,5 +48,18 @@
    2. 제약 사항
    - PlayResult VO 의 isFinish 가 True 인 경우 게임 새로 시작 및 종료 여부를 확인한다.
    
+4. BaseBallGameService
+   1. 역할
+      - 위 클래스를 이용하여 게임을 운영하는 서비스 입니다.
+   2. 제약 사항
+      - BaseBallGameConfig 의 정보가 필요하다.
+
+5. BaseBallGameConfig
+   1. 역할
+      - BallGenerator 에 정보를 제공 하는 역할을 한다.
+   2. 제공 정보
+      - 뽑는 숫자의 Range 와 뽑아야 되는 숫자의 갯수 정보를 제공한다.
+      
+
    
       
