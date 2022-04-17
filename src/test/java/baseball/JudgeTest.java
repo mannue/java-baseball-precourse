@@ -27,18 +27,18 @@ public class JudgeTest {
 
     private void judgeSetupUsingMockBallGenerator(int[] numbers) {
         templateUsingBallGeneratorMock(ballGenerator -> {
-            ballGenerator.when(() -> BallGenerator.create(startRange,endRange, numbers.length)).thenReturn(mockBallGeneratorReturnValues(numbers));
-            int updatedCount = judge.setup(BallGenerator.create(startRange,endRange, numbers.length));
+            ballGenerator.when(() -> BallGenerator.create(startRange, endRange, numbers.length)).thenReturn(mockBallGeneratorReturnValues(numbers));
+            int updatedCount = judge.setup(BallGenerator.create(startRange, endRange, numbers.length));
             assertThat(updatedCount).isEqualTo(numbers.length);
-            ballGenerator.verify(() -> BallGenerator.create(startRange,endRange, numbers.length));
+            ballGenerator.verify(() -> BallGenerator.create(startRange, endRange, numbers.length));
         });
     }
 
     private static Stream<Arguments> provideIntegerArrayForBallNumbers() {
         return Stream.of(
-                Arguments.of((Object) new int[]{1,2,3}),
-                Arguments.of((Object) new int[]{4,5,6}),
-                Arguments.of((Object) new int[]{7,8,9})
+                Arguments.of((Object) new int[]{1, 2, 3}),
+                Arguments.of((Object) new int[]{4, 5, 6}),
+                Arguments.of((Object) new int[]{7, 8, 9})
         );
     }
 
@@ -69,19 +69,19 @@ public class JudgeTest {
     private static Stream<Arguments> provideMockNumbersAndInputBallNumbersAndExpectedPlayResult() {
         return Stream.of(
                 Arguments.of(
-                        new int[]{1,2,3},
-                        makeBallNumbersByString("1,4,5"),
-                        new PlayResult(3,0,1)),
+                        new int[]{1, 2, 3},
+                        BallNumberConverter.resolve("145"),
+                        new PlayResult(3, 0, 1)),
 
                 Arguments.of(
-                        new int[]{2,4,5},
-                        makeBallNumbersByString("4,2,6"),
-                        new PlayResult(3,2,0)),
+                        new int[]{2, 4, 5},
+                        BallNumberConverter.resolve("426"),
+                        new PlayResult(3, 2, 0)),
 
                 Arguments.of(
-                        new int[]{4,5,6},
-                        makeBallNumbersByString("4,5,6"),
-                        new PlayResult(3,0,3)
+                        new int[]{4, 5, 6},
+                        BallNumberConverter.resolve("456"),
+                        new PlayResult(3, 0, 3)
                 )
         );
     }
@@ -94,25 +94,16 @@ public class JudgeTest {
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
-    private static BallNumber[] makeBallNumbersByString(String input) {
-        String[] values = input.split(",");
-        BallNumber[] res = new BallNumber[values.length];
-        for (int i=0; i < values.length; i++) {
-            res[i] = new BallNumber(values[i]);
-        }
-        return res;
-    }
-
     private void templateUsingBallGeneratorMock(Consumer<MockedStatic<BallGenerator>> consumer) {
-        try(MockedStatic<BallGenerator> ballGeneratorMockedStatic = Mockito.mockStatic(BallGenerator.class)) {
+        try (MockedStatic<BallGenerator> ballGeneratorMockedStatic = Mockito.mockStatic(BallGenerator.class)) {
             consumer.accept(ballGeneratorMockedStatic);
         }
     }
 
-    private BallNumber[] mockBallGeneratorReturnValues(int ... values) {
+    private BallNumber[] mockBallGeneratorReturnValues(int... values) {
         BallNumber[] ballNumbers = new BallNumber[values.length];
-        for (int i=1; i <= values.length; i++) {
-            ballNumbers[i-1] = new BallNumber(values[i-1]);
+        for (int i = 1; i <= values.length; i++) {
+            ballNumbers[i - 1] = new BallNumber(values[i - 1]);
         }
         return ballNumbers;
     }
