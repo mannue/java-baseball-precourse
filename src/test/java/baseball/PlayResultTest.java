@@ -2,6 +2,7 @@ package baseball;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -74,5 +75,13 @@ public class PlayResultTest {
     @CsvSource(value = {"2:3:0"}, delimiter = ':')
     public void testCannotBeOverExitCounter(final int exitCounter, final int ball, final int strike) {
         expectedIllegalArgumentException(exitCounter, ball, strike, PlayResult.ERROR.OVER.toString());
+    }
+
+    @DisplayName("playResult equal test")
+    @Test
+    public void testEqual() {
+        PlayResult playResult = new PlayResult(2, 1, 0);
+        assertThat(playResult).isEqualTo(new PlayResult(2,1,0));
+        assertThat(playResult).isNotEqualTo(new PlayResult(2,1,1));
     }
 }

@@ -37,6 +37,19 @@ public class PlayResult {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PlayResult that = (PlayResult) o;
+        return exitCounter == that.exitCounter && ball == that.ball && strike == that.strike;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(exitCounter, ball, strike);
+    }
+
+    @Override
     public String toString() {
         if (hasBall() && hasStrike()) {
             return String.format("%d볼 %d스크라이크", this.ball, this.strike);
