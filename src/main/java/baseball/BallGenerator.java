@@ -19,9 +19,11 @@ public class BallGenerator {
 
     private static BallNumber[] getBallNumbers(int start, int end, int size) {
         Set<BallNumber> buffer = new HashSet<>();
-        while (isNotFull(buffer, size)) {
+
+        do{
             getNumber(start, end).ifPresent(buffer::add);
-        }
+        }while (isNotFull(buffer,size));
+
         return buffer.toArray(new BallNumber[0]);
     }
 
