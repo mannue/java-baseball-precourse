@@ -14,20 +14,32 @@ public class BallGenerator {
         if (isInvalidParams(start, end, size)) {
             throw new IllegalArgumentException(argumentExceptionMsg);
         }
+        return getBallNumbers(start, end, size);
+    }
+
+    private static BallNumber[] getBallNumbers(int start, int end, int size) {
         Set<BallNumber> buffer = new HashSet<>();
         while (isNotFull(buffer, size)) {
-            getItem(start, end).ifPresent(buffer::add);
+            getNumber(start, end).ifPresent(buffer::add);
         }
         return buffer.toArray(new BallNumber[0]);
     }
 
     private static boolean isInvalidParams(int start, int end, int size) {
-        return start > end || !Objects.equals(Math.min(end-start,size),size);
+        return isInvalidRange(start, end) || isInvalidSize(start, end, size);
     }
 
-    private static Optional<BallNumber> getItem(final int start, final int end) {
+    private static boolean isInvalidSize(int start, int end, int size) {
+        return !Objects.equals(Math.min(end - start, size), size) || size < 1;
+    }
+
+    private static boolean isInvalidRange(int start, int end) {
+        return start > end;
+    }
+
+    private static Optional<BallNumber> getNumber(final int start, final int end) {
         final int item = pickNumberInRange(start, end);
-        if (item < start || item > end) return Optional.empty();
+        if (item < start || isInvalidRange(item, end)) return Optional.empty();
         return Optional.of(new BallNumber(item));
     }
 

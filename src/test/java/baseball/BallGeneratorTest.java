@@ -28,7 +28,7 @@ public class BallGeneratorTest {
 
     @DisplayName("BallGenerator invalid range test")
     @ParameterizedTest
-    @CsvSource(value = {"2:3:2","1:5:6"}, delimiter = ':')
+    @CsvSource(value = {"2:3:2","1:5:6","1:3:0"}, delimiter = ':')
     public void invalidSizeTest(final int start, final int end, final int size) {
         expectedIllegalArgumentException(start, end, size);
     }
